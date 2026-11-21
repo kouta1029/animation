@@ -2,6 +2,8 @@
 
 対象はG0承認済みの縦型パイロット案「ため息、持ち帰りで」。[脚本](script.md)、[ショット台帳](shots.csv)、[仮コンテ](../../storyboards/ep001/animatic_board.md)、[分割素材](../../assets/pilot/animatic/README.md)、[再生成手順](../../animation/pilot/animatic/README.md)、[音声候補の比較](voice_options.md)。
 
+**v3の映像品質は差し戻し。** 画面はアップに必要な表情と背景の奥行きが弱く、入口へ向かう動作も滑って見える。合成した試験音で時刻を検査した段階で、発話や芝居の質は未評価。冒頭3秒の画と演技を再試作し、全尺改訂の基準を作る。担当別の修正箇所は [PR #13のレビュー](https://github.com/kouta1029/animation/pull/13#issuecomment-7070860904)、画面と芝居の合格条件は [演出改訂案](../../storyboards/ep001/quality_revision.md) を参照。
+
 ## 総監督のレビュー
 
 - 仕事帰りの客の「疲れを悟られたくない」という動機が、風船を隠す行動から読み取れる。店員の大きな風船で強がりが解ける構成は、異常のルールを維持したままオチにつながる。
