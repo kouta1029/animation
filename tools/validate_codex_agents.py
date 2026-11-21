@@ -41,14 +41,21 @@ def validate(root: Path = ROOT) -> list[str]:
         return [f"{config_path}: {exc}"]
 
     settings = config.get("agents", {})
+    if not isinstance(settings, dict):
+        return ["[agents] はTOMLテーブルにしてください"]
     if settings.get("enabled") is not True:
         errors.append("[agents].enabled が true ではありません")
     threads = settings.get("max_concurrent_threads_per_session")
     if not isinstance(threads, int) or isinstance(threads, bool) or threads < 4:
         errors.append("[agents].max_concurrent_threads_per_session は整数4以上を指定してください")
 
+    roles_dir = root / ".codex" / "agents"
+    unexpected = sorted(path.name for path in roles_dir.glob("*.toml") if path.stem not in ROLES)
+    if unexpected:
+        errors.append(f"未定義のロールファイル: {', '.join(unexpected)}")
+
     for role in ROLES:
-        path = root / ".codex" / "agents" / f"{role}.toml"
+        path = roles_dir / f"{role}.toml"
         try:
             with path.open("rb") as handle:
                 data = tomllib.load(handle)

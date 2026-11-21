@@ -2,8 +2,12 @@ name: Validate Codex multi-agent configuration
 
 on:
   pull_request:
-    paths:
+    paths: &agent_paths
       - ".codex/**"
+      - "docs/decisions.md"
+      - "docs/series_bible.md"
+      - "docs/production_rules.md"
+      - "docs/roles/**"
       - "docs/agent_orchestration.md"
       - "docs/prompts/**"
       - "tools/validate_codex_agents.py"
@@ -11,12 +15,7 @@ on:
       - ".github/workflows/validate-codex-agents.yml"
   push:
     branches: [main]
-    paths:
-      - ".codex/**"
-      - "docs/agent_orchestration.md"
-      - "docs/prompts/**"
-      - "tools/validate_codex_agents.py"
-      - "tests/test_codex_agents.py"
+    paths: *agent_paths
 
 permissions:
   contents: read
