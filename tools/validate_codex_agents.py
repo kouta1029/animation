@@ -20,6 +20,9 @@ REQUIRED_DOCS = (
     "docs/roles/director.md",
     "docs/roles/script.md",
     "docs/roles/art.md",
+    "docs/roles/art/agent.md",
+    "docs/roles/art/review_checklist.md",
+    "docs/roles/art/director_review.md",
     "docs/roles/direction.md",
     "docs/roles/video.md",
 )
@@ -73,6 +76,10 @@ def validate(root: Path = ROOT) -> list[str]:
         text = str(data.get("developer_instructions", ""))
         if "docs/decisions.md" not in text:
             errors.append(f"{path}: 決定ログへの参照がありません")
+        if role == "art_director":
+            for required in ("docs/roles/art/agent.md", "docs/roles/art/review_checklist.md"):
+                if required not in text:
+                    errors.append(f"{path}: 作画品質ルールへの参照がありません: {required}")
 
     for rel in REQUIRED_DOCS:
         if not (root / rel).is_file():
