@@ -35,10 +35,9 @@ def main():
         assert "G2 PENDING" in raw, f"approval warning missing: {name}"
     comparison = check_svg(ROOT / "compare_128px.svg", width=818, height=778)
     expected_scale = 128 / 600
-    scales = [float(x) for x in re.findall(r"scale\\((0\\.\\d+)\\)", comparison)]
+    scales = [float(x) for x in re.findall(r"scale\((0\.\d+)\)", comparison)]
     assert len(scales) == 9, f"128px scale count is {len(scales)} instead of 9"
     assert all(abs(v - expected_scale) < 1e-8 for v in scales), scales
-    assert all(word in comparison for word in ("nao", "hibiki", "suzu")) is False or len(scales) == 9
 
     if args.render is not None:
         try:
