@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="215" viewBox="0 0 180 215" role="img">
+  <title>Floating sigh balloon</title>
+<path d="M83 183q13 13-1 28" fill="none" stroke="#629aa4" stroke-width="4" opacity=".55"/>
+<path d="M83 182l-7 12h16z" fill="#87c7cb" stroke="#5597a3" stroke-width="3" opacity=".75"/>
+<path d="M167 95c0 48-33 74-83 89C38 169 12 145 12 95 12 44 43 12 88 12s79 30 79 83z"
+      fill="#9edfe0" fill-opacity=".47" stroke="#70a5ad" stroke-width="5"/>
+<path d="M45 55q14-20 35-22m-44 33-2 5" fill="none" stroke="#fffdf3" stroke-width="9" stroke-linecap="round" opacity=".85"/>
+</svg>

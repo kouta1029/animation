@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="420" viewBox="0 0 320 420" role="img">
+  <title>customer body</title>
+<g>
+
+  <g id="legs" stroke="#392f36" stroke-width="5" stroke-linejoin="round">
+    <path d="M118 283h46l-6 103h-32zm48 0h43l-1 102h-33z" fill="#4e4854"/>
+    <path d="M125 380q19-1 34 6l1 17h-47q-8-12 12-23m52 3q23-6 32 2l9 16h-46z" fill="#e8dacf"/>
+  </g>
+  <path id="torso" d="M102 211q15-14 40-16h42q26 4 38 16l-15 87q-45 14-91 0z" fill="#446b79" stroke="#335763" stroke-width="5"/>
+  <path d='M127 202l22 26 28-27' fill='none' stroke='#cfb697' stroke-width='8'/><path d='M188 232l17 9-18 10z' fill='#cfb697'/>
+  <path id="neck" d="M144 165v34q11 13 34-1v-33" fill="#d5907e"/>
+  <path id="head" d="M106 123q0-60 54-61 57-1 66 51v29q-1 47-48 51-31 3-52-19l-16-14-13-7 9-11z" fill="#f3bfac" stroke="#d5907e" stroke-width="3"/>
+  <path id="hair" d="M101 133q-17-46 29-70 25-9 39-33l-1 23q65-8 70 57l-13 27-13-30-13-9q-34 23-73 17l-18 34z" fill="#314452"/>
+  <path d="m210 99 13 7m-15-1 13 8" stroke="#cfb697" stroke-width="4" stroke-linecap="round"/>
+
+</g>
+</svg>

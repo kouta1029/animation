@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img">
+  <title>Counter foreground overlay</title>
+  <g stroke="#795a50" stroke-width="8" stroke-linejoin="round">
+    <path d="M-20 1104h625v262H-20z" fill="#bc8972"/>
+    <path d="M0 1140h602m-600 177h583" fill="none" opacity=".48"/>
+    <path d="M-20 1089h546l91 24v24H-20z" fill="#8c6358"/>
+    <path d="M-20 1089h546l91 24H-20z" fill="#d6ac8e"/>
+  </g>
+</svg>

@@ -1,0 +1,6 @@
+shot_id,start_frame,end_frame_exclusive,camera,screen_action,acting,cue_ids,balloon_state,asset_ids,caption_box_px
+SA01,0,72,固定寄り・客とカウンター,肘を置く→口元に丸みが生まれる→F1が目より上へ,伏し目と肩落ち→目線がF1を追う→眉を上げたまま静止,A01,0→1・F1は客の目より上,CUSTOMER_HEAD|CUSTOMER_UPPER|COUNTER|BALLOON,
+SA02,72,264,同じ軸で胸上の二人,客の注文中はF1を客の斜め上に保持。店員がF1を見る,客は店員へ目を戻し作り笑い。店員は目だけF1へ,A02,1・F1は客の頭の斜め上,CUSTOMER_UPPER|CLERK_UPPER|COUNTER|BALLOON,120:1320:840:1550
+SA03,264,528,客の前腕とメニュー立てが入る寄り,F1を左手でメニュー裏。F2へ右腕を伸ばしF3が額より上へ,安堵で眉と肩が下がる→右腕を伸ばし眉に力→笑顔で目だけ上げる,A03|A03b,1→2→3・F1左手側のメニュー裏/F2右前腕上/F3額より上,CUSTOMER_UPPER|MENU_STAND|COUNTER|BALLOON,120:1320:840:1550
+SA04,528,816,同軸の二人とカップが入る引き,店員が紙カップを置く→長いため息→F4を二人の目の高さへ。顔の横に早めに抜き4個を同じ画面に入れる,店員は一度客を見る→肩を下げ深く吐く。客は肩と眉が緩んで吹き出す,A04|A05,3→4・客がF1とF2を保持/F3は頭上を上昇/F4は店員側で最大,CUSTOMER_UPPER|CLERK_UPPER|MENU_STAND|PAPER_CUP|COUNTER|BALLOON,120:1320:840:1550
+SA05,816,1008,通路と入口まで入る同軸の引き,店員がF4を誘導して客側へ回る→客が両腕でF1とF2を横から寄せる→店員が空いた手で上昇するF3を上から受ける→店員がF4も合わせて入口へ→客はカップで続く,店員は前腕で四個の上を押さえる。店員が肩越しに半笑い→客と目が合い自然な笑顔で保持,A06,4・入口でF4上/F1〜F3下・顔は見せる,CUSTOMER_UPPER|CLERK_UPPER|MENU_STAND|PAPER_CUP|COUNTER|PASSAGE|ENTRANCE|BALLOON,120:1320:840:1550
