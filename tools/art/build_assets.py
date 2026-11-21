@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build ORIGINAL draft 2D cutout character assets (designs are NOT approved).
+"""Build ORIGINAL redesigned v0.3 draft 2D cutout character assets (designs are NOT approved).
 
 Requirements: Python 3.10+, pip install cairosvg pillow
 Usage: python tools/art/build_assets.py [--output DIRECTORY]
@@ -16,9 +16,9 @@ W, H = 600, 1600
 S = '{http://www.w3.org/2000/svg}'
 
 CAST = {
- 'nao': dict(name='宮瀬ナオ', hair='#38445B', skin='#F6D9C7', jacket='#C9B9A0', shirt='#F7F3E9', pants='#3C4355', accent='#52788C', shoes='#EFF1F4', hair_style='short', face='oval'),
- 'hibiki': dict(name='天野ヒビキ', hair='#C97843', skin='#F6CEAF', jacket='#3A929B', shirt='#EBA958', pants='#344D63', accent='#F7CB55', shoes='#F8E9D7', hair_style='spiky', face='round'),
- 'suzu': dict(name='久住スズ', hair='#534358', skin='#EED3C7', jacket='#9E899E', shirt='#F7F0E8', pants='#4E414B', accent='#9F6578', shoes='#E5D6D7', hair_style='long', face='oval'),
+ 'nao': dict(name='宮瀬ナオ', hair='#303A51', skin='#F6D9C7', jacket='#D7C3AD', shirt='#F7F3E9', pants='#323744', accent='#56728C', shoes='#EFF1F4', hair_style='short', face='oval'),
+ 'hibiki': dict(name='天野ヒビキ', hair='#D8753D', skin='#F6CEAF', jacket='#157F8B', shirt='#F6AE48', pants='#304257', accent='#F8C344', shoes='#F8E9D7', hair_style='spiky', face='round'),
+ 'suzu': dict(name='久住スズ', hair='#463444', skin='#EED3C7', jacket='#AB8AAE', shirt='#F7F0E8', pants='#4E414B', accent='#9C4659', shoes='#E5D6D7', hair_style='long', face='oval'),
 }
 
 # Values in the same 600x1600 canvas are not arbitrary local offsets.
@@ -28,13 +28,23 @@ def make_svg(key, c):
     round_face = c['face'] == 'round'
     hw = 174 if round_face else 157
     face = f'<path d="M {300-hw} 290 Q {300-hw-8} 139 300 155 Q {300+hw+8} 145 {300+hw} 290 Q {300+hw-8} 501 300 510 Q {300-hw+8} 500 {300-hw} 290 Z" fill="{skin}" stroke="#30313B" stroke-width="12"/>'
-    back_hair = (f'<path d="M132 278 Q104 106 295 112 Q500 115 482 323 L488 650 Q444 677 424 627 L414 463 Q298 515 186 467 L177 630 Q151 673 119 640 Z" fill="{hair}" stroke="#30313B" stroke-width="12"/>' if key=='suzu' else '')
+    back_hair = (f'<path d="M132 278 Q104 106 295 112 Q500 115 482 323 L474 542 Q440 565 417 538 L414 439 Q298 494 186 450 L177 530 Q145 556 126 541 Z" fill="{hair}" stroke="#30313B" stroke-width="12"/>' if key=='suzu' else '')
     if key == 'nao':
         front = f'<path d="M140 272 Q115 166 192 151 L175 115 L250 148 L285 105 L317 147 Q397 105 443 182 L456 287 L412 249 L393 224 L341 231 L305 204 L262 247 L225 225 L174 278 Z" fill="{hair}" stroke="#30313B" stroke-width="11" stroke-linejoin="round"/>'
     elif key == 'hibiki':
         front = f'<path d="M122 261 L136 184 L107 159 L170 160 L179 99 L224 135 L263 97 L295 144 L356 92 L374 154 L427 140 L431 186 L487 207 L455 249 L428 239 L402 215 L346 234 L304 211 L257 254 L224 230 L180 265 Z" fill="{hair}" stroke="#30313B" stroke-width="11" stroke-linejoin="round"/>'
     else:
         front = f'<path d="M135 299 Q128 142 259 132 Q430 103 456 271 L453 465 L420 450 L411 272 Q359 240 335 193 Q280 255 173 261 L177 460 L144 470 Z" fill="{hair}" stroke="#30313B" stroke-width="11"/>'
+    # Character-specific, detachable silhouette and costume accents. G2_PENDING concept art.
+    if key == 'nao':
+        signature_hair = '<path d="M262 127 Q267 66 355 39 Q358 91 307 155" fill="' + hair + '" stroke="#30313B" stroke-width="12"/><path d="M363 189 l35 -10" stroke="#F9E1A0" stroke-width="11"/><path d="M371 215 l35 -10" stroke="#F9E1A0" stroke-width="11"/>'
+        signature_costume = '<path d="M183 814 l46 -8 -3 61 -44 0 Z" fill="' + accent + '" stroke="#30313B" stroke-width="6"/><path d="M192 853 l20 -30 13 28" stroke="#F6F1E8" stroke-width="5" fill="none"/><path d="M299 702 V832" stroke="#30313B" stroke-width="7"/><rect x="274" y="825" width="60" height="77" rx="6" fill="#F9FAF5" stroke="#30313B" stroke-width="7"/><path d="M285 844 h39 M285 857 h31" stroke="' + accent + '" stroke-width="5"/>'
+    elif key == 'hibiki':
+        signature_hair = '<path d="M172 144 Q72 118 51 265 Q115 247 154 207" fill="' + hair + '" stroke="#30313B" stroke-width="11"/><path d="M419 136 Q531 87 552 251 Q478 220 431 201" fill="' + hair + '" stroke="#30313B" stroke-width="11"/><path d="M365 116 L387 42 419 113 463 62 469 151" fill="#F9C447" stroke="#30313B" stroke-width="10"/><path d="M375 100 L451 116" stroke="#FFF1C6" stroke-width="9"/>'
+        signature_costume = '<path d="M171 695 Q299 862 415 1040" stroke="#313E4C" stroke-width="34" fill="none"/><path d="M180 692 Q302 861 412 1041" stroke="#F9C447" stroke-width="12" fill="none"/><path d="M189 794 L227 825 201 868 L165 835 Z" fill="#F9C447" stroke="#30313B" stroke-width="8"/><path d="M357 814 l45 0 8 49 -48 0 Z" fill="#F9C447" stroke="#30313B" stroke-width="7"/>'
+    else:
+        signature_hair = '<path d="M167 215 Q177 123 302 118 Q429 113 447 211" stroke="#675065" stroke-width="16" fill="none"/><path d="M424 214 l42 -35 31 35 -35 31 Z" fill="#AF4C64" stroke="#30313B" stroke-width="8"/><circle cx="463" cy="214" r="12" fill="#F8DEAE"/><path d="M473 241 Q495 349 489 408" stroke="#8B324D" stroke-width="8" fill="none"/><circle cx="489" cy="415" r="12" fill="#8B324D"/>'
+        signature_costume = '<path d="M221 784 Q300 826 379 784 L417 1094 Q307 1143 186 1094 Z" fill="#59454F" stroke="#30313B" stroke-width="9"/><path d="M218 810 l161 0" stroke="#9C4659" stroke-width="9"/><path d="M290 829 l-8 52 23 -18 18 16 -8 -51" fill="#9C4659" stroke="#30313B" stroke-width="5"/><path d="M279 999 q-10 -13 3 -24 m20 22 q-10 -12 3 -23" stroke="#F6EFE9" stroke-width="5" fill="none"/>'
     skirt = (f'<path d="M219 1220 L273 1220 L280 1470 L212 1470 Z" fill="#6D606D" stroke="#30313B" stroke-width="9"/><path d="M326 1220 L384 1220 L387 1470 L322 1470 Z" fill="#6D606D" stroke="#30313B" stroke-width="9"/><path d="M179 861 Q300 887 422 861 L461 1256 Q300 1314 139 1256 Z" fill="{pants}" stroke="#30313B" stroke-width="11"/>') if key=='suzu' else ''
     trousers = '' if key=='suzu' else f'<path d="M190 1048 L284 1048 L288 1460 L198 1460 Z" fill="{pants}" stroke="#30313B" stroke-width="12"/><path d="M316 1048 L412 1048 L406 1460 L312 1460 Z" fill="{pants}" stroke="#30313B" stroke-width="12"/>'
     # Rigid pieces; final performance adjustments are done through pivots (see manifest).
@@ -42,18 +52,20 @@ def make_svg(key, c):
         ('hair_back',back_hair),
         ('legs',trousers + skirt + f'<path d="M176 1460 Q220 1427 290 1460 L294 1496 L179 1500 Z" fill="{shoes}" stroke="#30313B" stroke-width="11"/><path d="M314 1460 Q362 1430 424 1460 L430 1500 L312 1497 Z" fill="{shoes}" stroke="#30313B" stroke-width="11"/>'),
         ('torso',f'<path d="M226 550 L370 550 Q421 558 449 657 L427 1080 Q304 1121 175 1080 L152 654 Q171 563 226 550 Z" fill="{coat}" stroke="#30313B" stroke-width="12"/><path d="M244 570 L357 570 L353 1033 L250 1033 Z" fill="{shirt}"/><path d="M244 584 L289 735 L274 1015 M357 584 L312 735 L326 1015" stroke="#685C62" stroke-width="8" fill="none"/><circle cx="299" cy="831" r="8" fill="{accent}"/><circle cx="299" cy="927" r="8" fill="{accent}"/>'),
+        ('signature_costume',signature_costume),
         ('arm_l',f'<path d="M192 591 Q154 596 136 660 L111 942 Q109 977 146 984 L175 962 L207 720 Z" fill="{coat}" stroke="#30313B" stroke-width="12"/><ellipse cx="141" cy="988" rx="35" ry="41" fill="{skin}" stroke="#30313B" stroke-width="10"/>'),
         ('arm_r',f'<path d="M407 588 Q454 587 467 663 L493 943 Q490 984 451 988 L429 961 L395 720 Z" fill="{coat}" stroke="#30313B" stroke-width="12"/><ellipse cx="458" cy="989" rx="35" ry="41" fill="{skin}" stroke="#30313B" stroke-width="10"/>'),
         ('neck',f'<rect x="271" y="490" width="58" height="104" rx="22" fill="{skin}" stroke="#30313B" stroke-width="10"/>'),
         ('head',face + f'<path d="M{300-hw} 324 Q{300-hw-30} 295 {300-hw-13} 350 M{300+hw} 324 Q{300+hw+30} 295 {300+hw+13} 350" fill="none" stroke="#B98782" stroke-width="8"/>'),
         ('hair_front',front),
+        ('signature_hair',signature_hair),
         ('eye_l','<ellipse cx="242" cy="323" rx="21" ry="32" fill="#30313B"/><circle cx="247" cy="315" r="8" fill="#FFFFFF"/>'),
         ('eye_r','<ellipse cx="358" cy="323" rx="21" ry="32" fill="#30313B"/><circle cx="363" cy="315" r="8" fill="#FFFFFF"/>'),
         ('brow_l','<path d="M211 270 Q238 255 267 271" fill="none" stroke="#30313B" stroke-width="12" stroke-linecap="round"/>'),
         ('brow_r','<path d="M334 271 Q362 255 390 269" fill="none" stroke="#30313B" stroke-width="12" stroke-linecap="round"/>'),
         ('mouth','<path d="M275 409 Q300 425 325 409" fill="none" stroke="#8C4950" stroke-width="9" stroke-linecap="round"/>'),
     ]
-    return f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="{c["name"]} draft cutout master"><title>{c["name"]} - v0.2 unapproved</title>' + ''.join(f'<g id="{ident}">{s}</g>' for ident,s in groups) + '</svg>'
+    return f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img" aria-label="{c["name"]} draft cutout master"><title>{c["name"]} - v0.3 unapproved</title>' + ''.join(f'<g id="{ident}">{s}</g>' for ident,s in groups) + '</svg>'
 
 # Mouth shapes: ten distinct expressions, same center, exchangeable during speech.
 MOUTHS={
@@ -106,14 +118,14 @@ def standalone(fragment, label):
 
 def main():
     ap=argparse.ArgumentParser()
-    ap.add_argument('--output',default='build/art_v0.2')
+    ap.add_argument('--output',default='build/art_v0.3')
     ap.add_argument('--svg-only',action='store_true',help='skip png if CairoSVG unavailable')
     args=ap.parse_args()
     out=Path(args.output)
     if not args.svg_only:
         try: import cairosvg
         except ImportError as e: raise SystemExit('Install export dependency: pip install cairosvg') from e
-    manifest={'version':'0.2-draft','approval':'G2_PENDING','source':'character_parts_spec_v0.1','canvas':{'width':W,'height':H},'output_png_height':2000,'render_registration':'all parts retain same viewBox (600x1600)','characters':{},'expressions':EXPRESSIONS}
+    manifest={'version':'0.3-redesign-draft','approval':'G2_PENDING','source':'character_redesign_v0.3 + character_parts_spec_v0.1','canvas':{'width':W,'height':H},'output_png_height':2000,'render_registration':'all parts retain same viewBox (600x1600)','characters':{},'expressions':EXPRESSIONS}
     for key,c in CAST.items():
         root=out/'characters'/key
         masters=root/'master'; layers=root/'layers'; mouths=root/'mouths'; eyes=root/'eyes'; brows=root/'brows'
