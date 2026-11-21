@@ -12,6 +12,10 @@
 4. [チャンネル総合設計書v1.0（原本DOCXからの抽出）](docs/source/channel_design_v1.0_extracted.txt) — 初期案。後の決定より優先しない
 5. [作画監督向けキャラクターデザイン・パーツ仕様v0.1](docs/character_design_parts_v0.1.md) — デザイン詳細は未承認
 
+## 共有リンク
+
+- [Google 共有リンク](https://share.google/DeXexu7AHVPerTWCC)
+
 ## 5部門
 
 | 部門 | 作業ガイド | 成果物 |
