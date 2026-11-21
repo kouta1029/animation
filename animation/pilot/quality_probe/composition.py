@@ -6,6 +6,7 @@ import sys
 import wave
 from array import array
 from pathlib import Path
+from xml.etree import ElementTree
 
 FPS = 24
 DURATION = 3
@@ -103,7 +104,26 @@ def smooth(start, stop, value):
     return fraction * fraction * (3.0 - 2.0 * fraction)
 
 
-def make_frame(index):
+def load_character_layers():
+    source = Path(__file__).resolve().parents[3] / "assets/pilot/animatic"
+
+    def read(layer):
+        root = ElementTree.parse(source / f"customer_{layer}.svg").getroot()
+        for element in root.iter():
+            element.tag = element.tag.split("}", 1)[-1]
+        return list(root.find("g"))
+
+    def svg(children):
+        return "".join(ElementTree.tostring(child, encoding="unicode") for child in children)
+
+    body = read("body")
+    layers = {"body": svg(body[:-3]), "head": svg(body[-3:])}
+    for name in ["arms_elbow", "eyes_normal", "eyes_up", "mouth_closed", "mouth_open"]:
+        layers[name] = svg(read(name))
+    return layers
+
+
+def make_frame(index, layers=None):
     settle = smooth(0, 17, index)
     recover = smooth(49, 68, index)
     look = smooth(39, 54, index)
@@ -115,10 +135,19 @@ def make_frame(index):
     eye_open = 19 + 17 * surprise - 6.0 * settle
     pupil_x = 576 - 12 * look
     pupil_y = 835 - 15 * look
-    breath_mouth_y = 3 + 15 * breath
+    breath_mouth_y = 3 + 20 * breath
     lower_arm = 55 * (1 - smooth(0, 12, index)) + 4 * math.sin(index * 0.16) * (1 - settle)
-    mouth_x = 467
+    mouth_x = 467 + 8 * breath
     mouth_y = 971
+
+    if layers:
+        # The body and expression shapes are the art department's existing SVG paths.
+        rig_x, rig_y, scale = -35, 200, 4.6
+        shoulder = 33 * settle - 10 * recover
+        head_drop = 22 * settle - 9 * recover
+        mouth_x = rig_x + 149 * scale
+        mouth_y = rig_y + 159 * scale
+        head_turn = 0.0
 
     # The bubble begins at the lip and then moves away, leaving the gaze readable.
     birth = smooth(18, 35, index)
@@ -141,12 +170,25 @@ def make_frame(index):
   <path d="M1 73l-11 9 11 5 11-5z" fill="#668f90"/>
 </g>"""
 
+    if layers:
+        eye_layer = "eyes_up" if index >= 50 else "eyes_normal"
+        mouth_layer = "mouth_open" if 17 <= index < 45 else "mouth_closed"
+        return f"""<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+{CAFE}
+<g transform="translate({rig_x},{rig_y + shoulder:.2f}) scale({scale})">{layers["body"]}</g>
+<g transform="translate({rig_x},{rig_y + head_drop:.2f}) scale({scale})">
+{layers["head"]}{layers[eye_layer]}{layers[mouth_layer]}
+</g>
+<g transform="translate({rig_x},{rig_y - lower_arm:.2f}) scale({scale})">{layers["arms_elbow"]}</g>
+{balloon}
+</svg>"""
+
     return f"""<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
 {CAFE}
 <g transform="translate(0,{shoulder:.2f})">{COAT}</g>
 <g transform="translate(0,{head_drop:.2f}) rotate({head_turn:.2f},740,1100)">
 {HEAD}
-<path d="M532 {800 - 30 * surprise:.2f}q43-27 99-12" fill="none" stroke="#463d3b" stroke-width="11" stroke-linecap="round"/>
+<path d="M527 {820 - 24 * surprise:.2f}q32-20 68-9" fill="none" stroke="#6c493e" stroke-width="13" stroke-linecap="round"/>
 <path d="M542 838q32 {-eye_open * 1.7:.2f} 72 -13q-1 {eye_open * 1.9:.2f}-40 {eye_open * 1.35:.2f}q-23-3-32 {-eye_open * 0.85:.2f}z"
       fill="#fff0db" stroke="#594640" stroke-width="8" stroke-linejoin="round"/>
 <ellipse cx="{pupil_x:.2f}" cy="{pupil_y:.2f}" rx="12" ry="{min(17, eye_open + 3):.2f}" fill="#35464b"/>
@@ -186,6 +228,8 @@ def make_audio(path):
 
 if __name__ == "__main__":
     directory = Path(sys.argv[1])
+    layers = load_character_layers() if "--character-check" in sys.argv[2:] else None
     for frame_index in range(FPS * DURATION):
-        (directory / f"frame{frame_index:03d}.svg").write_text(make_frame(frame_index), encoding="utf-8")
+        frame = make_frame(frame_index, layers)
+        (directory / f"frame{frame_index:03d}.svg").write_text(frame, encoding="utf-8")
     make_audio(directory / "opening.wav")

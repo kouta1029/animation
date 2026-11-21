@@ -9,7 +9,7 @@ trap 'rm -rf -- "$work"' EXIT
 export XDG_CACHE_HOME="$work/cache" XDG_DATA_HOME="$work/data" XDG_CONFIG_HOME="$work/config"
 mkdir -p "$XDG_CACHE_HOME" "$XDG_DATA_HOME" "$XDG_CONFIG_HOME"
 
-python3 "$source_dir/composition.py" "$work"
+python3 "$source_dir/composition.py" "$work" "${@:2}"
 godot --headless --path "$source_dir" --script "$source_dir/render.gd" -- "$work"
 ffmpeg -nostdin -hide_banner -loglevel error -xerror \
     -framerate 24 -i "$work/frame%03d.png" -i "$work/opening.wav" \

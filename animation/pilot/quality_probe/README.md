@@ -20,3 +20,13 @@ bash animation/pilot/quality_probe/render.sh /tmp/EP001_opening_motion.mp4
 Godot 4.7.2が元の解像度でSVGをラスタライズし、FFmpegが1080×1920・24 fpsでH.264/AACを出力する。Pythonで生成した環境音・息・接地の試験音を使用する。出力済みパスを指定したときは処理を停止する。動画と比較画像はGit外で共有する。
 
 この試験の範囲は冒頭3秒。続く場面に反映する場合は、作画・演出担当と口形、人物の角度、喫茶店の配置を揃え、オチの芝居と入口への動線を別ショットで検証する。
+
+## 作画監督の既存素材で確認する版
+
+```bash
+bash animation/pilot/quality_probe/render.sh /tmp/EP001_opening_art_match.mp4 --character-check
+```
+
+`assets/pilot/animatic/customer_body.svg` の髪・輪郭・衣装と、同じ画角で用意された `customer_arms_elbow.svg`、`customer_eyes_{normal,up}.svg`、`customer_mouth_{closed,open}.svg` を読み込む。既存の輪郭を拡大し、身体、顔、腕の位置と表情差分の切り替えだけで動きを作る。背景、左上へ抜ける風船と試験音は冒頭試験と共通。生成画像や描き直した人物は画面に入らない。
+
+既存の肘・目・口は差し替え用の静止パーツのため、前腕に体重を預けるポーズや、まぶた・瞳の中間状態は今回の素材から連続的に作れない。正式な寄りのカットを仕上げる際は、作画監督によるカット専用の接地ポーズと表情中間差分を用意する。
