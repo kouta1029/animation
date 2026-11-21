@@ -1,0 +1,7 @@
+config_version=5
+
+[application]
+config/name="EP001 Review Animatic"
+
+[rendering]
+renderer/rendering_method="gl_compatibility"

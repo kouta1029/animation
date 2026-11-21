@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="480" height="492" viewBox="0 0 480 492" role="img" aria-labelledby="title description">
+  <title id="title">Shortsパイロット 表情ラフ（仮案）</title>
+  <desc id="description">各128ピクセル角の3列3段。左からナオ、ヒビキ、スズ。上から通常、驚き、オチ直前。</desc>
+  <defs>
+    <rect id="panel" width="128" height="128" rx="7" fill="#fffaf2"/>
+    <g id="nao">
+      <path d="M29 127v-11q3-15 22-19h23q17 4 20 19v11z" fill="#6d8b9d"/>
+      <path d="m49 102 9 14 16-16" fill="#d3bea8"/>
+      <path d="M34 65q-2-33 34-35l14 16q17 7 14 31l-8 17-8-10-36 3z" fill="#26384a"/>
+      <path d="M48 84v15q6 9 18 2V85" fill="#e9b7a2"/>
+      <path d="M39 62q0-22 25-23 23 0 26 27v11q-2 14-18 19-12 3-24-6L37 81l3-7z" fill="#f4cfb8"/>
+      <path d="M35 71q-8-27 9-35 4-13 23-21l-3 13q29 0 30 27l-8 2-13-12q-10 12-34 14z" fill="#26384a"/>
+      <path d="m79 46 9 4m-11 0 9 4" stroke="#d0b59d" stroke-width="2.5"/>
+      <path d="m77 114 5-5 6 5z" fill="#e8c6a6"/>
+    </g>
+    <g id="hibiki">
+      <path d="M25 127v-12q2-12 26-18h25q20 4 24 18v12z" fill="#348f8c"/>
+      <path d="M43 105q13 12 37-4m-29 7 2 11m18-11-2 12" fill="none" stroke="#a8d6c2" stroke-width="2.5"/>
+      <path d="M45 87v13q10 11 23 1V86" fill="#ca876c"/>
+      <path d="M28 66q0-26 30-30 27-2 31 29v11q-3 18-22 21-18 3-31-10l-9-9 4-7z" fill="#df9c7d"/>
+      <path d="M27 69q-8-16 5-31 14-13 37-16 14 1 20 6l20-5-11 15 14 3-15 10-10 29-7-14-3-15q-21 14-47 10z" fill="#ad4a2f"/>
+      <path d="m77 42 4-9 6 5 7-7 3 8-6 6z" fill="#ecc547"/>
+      <path d="M61 127l22-25" stroke="#3b5151" stroke-width="4"/>
+    </g>
+    <g id="suzu">
+      <path d="M29 127v-12q2-10 24-16h23q22 4 23 16v12z" fill="#aa97af"/>
+      <path d="M46 127v-21h36v21" fill="#563b54"/>
+      <path d="M27 65q-1-33 33-37 30-2 35 32l4 37-29 2-17-7-26 7z" fill="#46344d"/>
+      <path d="M48 89v13q7 10 19 0V87" fill="#d4a59a"/>
+      <path d="M35 65q1-23 27-23 20 0 25 22l2 12q-3 16-19 20-13 2-27-5L34 81l3-6z" fill="#efd1c8"/>
+      <path d="M29 60q0-31 33-33 29-1 33 34l5 39-14 1-5-40q-17-2-23-14-8 12-23 16l4 30-12 4z" fill="#46344d"/>
+      <path d="m82 52 5-6 6 7-5 6z" fill="#a64765"/>
+      <path d="m89 58 2 12" fill="none" stroke="#a64765" stroke-width="2"/>
+    </g>
+    <g id="neutral" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <path d="m43 64 7-1m14 0 9-1m-30 8q4-2 8 0m12 0q5-3 10-1m-17 15 8 0"/>
+      <circle cx="47" cy="71" r="1.1" fill="currentColor"/>
+      <circle cx="67" cy="70" r="1.2" fill="currentColor"/>
+    </g>
+    <g id="surprise" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <path d="m43 59q3-5 8-2m13-1q5-4 9-1" fill="none"/>
+      <ellipse cx="47" cy="69" rx="3.5" ry="5" fill="#fffaf2"/>
+      <ellipse cx="68" cy="68" rx="4.5" ry="5.5" fill="#fffaf2"/>
+      <circle cx="47" cy="69" r="0.9" fill="currentColor"/>
+      <circle cx="67" cy="68" r="1" fill="currentColor"/>
+      <ellipse cx="59" cy="84" rx="4" ry="5" fill="currentColor"/>
+    </g>
+    <g id="nao-payoff" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <path d="m43 63 7 2m14-6 9 3m-30 9 7 1m13-2q5-3 10 1m-18 15q5-4 10 0"/>
+      <circle cx="48" cy="72" r="1.1" fill="currentColor"/>
+      <circle cx="69" cy="71" r="1.2" fill="currentColor"/>
+    </g>
+    <g id="hibiki-payoff" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <path d="m43 64 7-3m14 1 10 1m-31 9q3 4 8 0m12 0q5 4 11-1"/>
+      <path d="m52 82q7 2 16-2-6 13-16 2z" fill="#fffaf2"/>
+    </g>
+    <g id="suzu-payoff" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <path d="m42 65 7-1m14 0 9-1m-30 8 7 0m13 0 10-1m-18 14q7 2 12-3"/>
+      <circle cx="45" cy="72" r="1.1" fill="currentColor"/>
+      <circle cx="65" cy="71" r="1.2" fill="currentColor"/>
+    </g>
+  </defs>
+
+  <rect width="480" height="492" fill="#eaeef2"/>
+  <g font-family="sans-serif" font-weight="bold" fill="#263548" text-anchor="middle">
+    <text x="240" y="25" font-size="15">G0 EXPRESSION STUDY</text>
+    <text x="124" y="48">NAO</text>
+    <text x="264" y="48">HIBIKI</text>
+    <text x="404" y="48">SUZU</text>
+  </g>
+  <g font-family="sans-serif" font-size="10" fill="#263548">
+    <text x="7" y="123">Neutral</text>
+    <text x="7" y="263">Surprise</text>
+    <text x="7" y="403">Payoff</text>
+  </g>
+  <g color="#342a33">
+    <g transform="translate(60 57)"><use xlink:href="#panel"/><use xlink:href="#nao"/><use xlink:href="#neutral"/></g>
+    <g transform="translate(200 57)"><use xlink:href="#panel"/><use xlink:href="#hibiki"/><use xlink:href="#neutral"/></g>
+    <g transform="translate(340 57)"><use xlink:href="#panel"/><use xlink:href="#suzu"/><use xlink:href="#neutral"/></g>
+    <g transform="translate(60 197)"><use xlink:href="#panel"/><use xlink:href="#nao"/><use xlink:href="#surprise"/></g>
+    <g transform="translate(200 197)"><use xlink:href="#panel"/><use xlink:href="#hibiki"/><use xlink:href="#surprise"/></g>
+    <g transform="translate(340 197)"><use xlink:href="#panel"/><use xlink:href="#suzu"/><use xlink:href="#surprise"/></g>
+    <g transform="translate(60 337)"><use xlink:href="#panel"/><use xlink:href="#nao"/><use xlink:href="#nao-payoff"/></g>
+    <g transform="translate(200 337)"><use xlink:href="#panel"/><use xlink:href="#hibiki"/><use xlink:href="#hibiki-payoff"/></g>
+    <g transform="translate(340 337)"><use xlink:href="#panel"/><use xlink:href="#suzu"/><use xlink:href="#suzu-payoff"/></g>
+  </g>
+</svg>

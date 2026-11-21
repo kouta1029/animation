@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img">
+  <title>EP001 café layout</title>
+<defs>
+  <linearGradient id="wall" x2="0" y2="1">
+    <stop stop-color="#f4ede6"/>
+    <stop offset="1" stop-color="#deded2"/>
+  </linearGradient>
+</defs>
+<rect width="1080" height="1920" fill="url(#wall)"/>
+<path d="M0 1370h1080v550H0z" fill="#b69889"/>
+<path d="M0 1370h1080M0 1590h1080M0 1800h1080M170 1370 70 1920m430-550-18 550m320-550 62 550"
+      stroke="#a28175" stroke-width="8" opacity=".5"/>
+<g id="entrance" stroke="#5b716d" stroke-width="15" stroke-linejoin="round">
+  <path d="M820 1371V714h225v657" fill="#b8c9bd"/>
+  <path d="M846 753h173v387H846z" fill="#e8f0dc"/>
+  <path d="M849 1060q83-93 169-45v122H849z" fill="#b2c7ac" stroke="none"/>
+  <path d="M848 1182h170v158H848z" fill="#ccdbcc"/>
+  <path d="M866 1171v65" stroke="#d6a580" stroke-linecap="round"/>
+</g>
+<g id="cafe-details" stroke="#9e8277" stroke-width="7" opacity=".68">
+  <path d="M41 797h272v16H41zM53 874h247v15H53z" fill="#c7a48b"/>
+  <path d="M68 752h40v42H68zm59 0h40v42h-40z" fill="#efe4d3"/>
+  <path d="M114 756q24 8 3 22m58-22q24 8 3 22" fill="none"/>
+  <path d="M105 839h37v34h-37m55-34h37v34h-37" fill="#e5d1b7"/>
+</g>
+<g id="counter-base" stroke="#795a50" stroke-width="8" stroke-linejoin="round">
+  <path d="M-20 1104h625v262H-20z" fill="#bc8972"/>
+  <path d="M0 1140h602m-600 177h583" fill="none" opacity=".48"/>
+  <path d="M-20 1089h546l91 24v24H-20z" fill="#8c6358"/>
+  <path d="M-20 1089h546l91 24H-20z" fill="#d6ac8e"/>
+</g>
+</svg>
