@@ -1,3 +1,5 @@
+<!-- 作画のデザイン審査・実装素材PRの場合は、.github/PULL_REQUEST_TEMPLATE/art_design.md または art_assets.md の内容を使用する。技術試作とデザイン審査を混同しない。 -->
+
 ## 目的・関連Issue
 
 ## 対象話数・担当部門
