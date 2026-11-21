@@ -1,0 +1,35 @@
+name: Validate Codex multi-agent configuration
+
+on:
+  pull_request:
+    paths:
+      - ".codex/**"
+      - "docs/agent_orchestration.md"
+      - "docs/prompts/**"
+      - "tools/validate_codex_agents.py"
+      - "tests/test_codex_agents.py"
+      - ".github/workflows/validate-codex-agents.yml"
+  push:
+    branches: [main]
+    paths:
+      - ".codex/**"
+      - "docs/agent_orchestration.md"
+      - "docs/prompts/**"
+      - "tools/validate_codex_agents.py"
+      - "tests/test_codex_agents.py"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate TOML and required docs
+        run: python tools/validate_codex_agents.py
+      - name: Unit tests
+        run: python -m unittest discover -s tests -p "test_*.py" -v

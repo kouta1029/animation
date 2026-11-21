@@ -1,0 +1,7 @@
+# プロジェクト共通のCodexマルチエージェント設定
+# Codexでこのリポジトリをtrustedにしたセッションで読み込まれます。
+# ログイン・認証情報・モデル名・課金情報はここに置きません。
+
+[agents]
+enabled = true
+max_concurrent_threads_per_session = 4
