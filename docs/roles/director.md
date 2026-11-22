@@ -5,6 +5,8 @@
 ## 読む資料
 `docs/decisions.md`と`docs/series_bible.md`、[制作ルール](../production_rules.md)。
 
+[制作フロー設計書](../production_workflow.md)、[担当 agent.md](director/agent.md)、[提出前チェックリスト](director/review_checklist.md)を適用する。
+
 ## 成果物
 G0〜G5の承認・差戻し、各話ブリーフ、最終QC、決定ログ更新
 
