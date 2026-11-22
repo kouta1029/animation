@@ -5,6 +5,8 @@
 ## 読む資料
 `docs/decisions.md`と`docs/series_bible.md`、[制作ルール](../production_rules.md)。
 
+[制作フロー設計書](../production_workflow.md)、[担当 agent.md](video/agent.md)、[提出前チェックリスト](video/review_checklist.md)を適用する。
+
 ## 成果物
 再現可能なプロジェクト、音声マニフェスト、MP4、QAログ、実行手順
 

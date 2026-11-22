@@ -11,7 +11,13 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 ROLES = ("script_director", "art_director", "direction_director", "video_director")
+ROLE_DOCS = {
+    role: (f"docs/roles/{role}/agent.md", f"docs/roles/{role}/review_checklist.md")
+    for role in ("director", "script", "art", "direction", "video")
+}
+WORKFLOW_DOC = "docs/production_workflow.md"
 REQUIRED_DOCS = (
+    WORKFLOW_DOC,
     "docs/decisions.md",
     "docs/series_bible.md",
     "docs/production_rules.md",
@@ -20,11 +26,10 @@ REQUIRED_DOCS = (
     "docs/roles/director.md",
     "docs/roles/script.md",
     "docs/roles/art.md",
-    "docs/roles/art/agent.md",
-    "docs/roles/art/review_checklist.md",
     "docs/roles/art/director_review.md",
     "docs/roles/direction.md",
     "docs/roles/video.md",
+    *(path for paths in ROLE_DOCS.values() for path in paths),
 )
 FORBIDDEN_ROLE_OVERRIDES = {
     "approval_policy",
@@ -76,10 +81,11 @@ def validate(root: Path = ROOT) -> list[str]:
         text = str(data.get("developer_instructions", ""))
         if "docs/decisions.md" not in text:
             errors.append(f"{path}: 決定ログへの参照がありません")
-        if role == "art_director":
-            for required in ("docs/roles/art/agent.md", "docs/roles/art/review_checklist.md"):
-                if required not in text:
-                    errors.append(f"{path}: 作画品質ルールへの参照がありません: {required}")
+        role_docs = ROLE_DOCS[role.removesuffix("_director")]
+        for required in (WORKFLOW_DOC, *role_docs):
+            if required not in text:
+                kind = "作画品質ルール" if role == "art_director" and required in role_docs else "制作フロールール"
+                errors.append(f"{path}: {kind}への参照がありません: {required}")
 
     for rel in REQUIRED_DOCS:
         if not (root / rel).is_file():

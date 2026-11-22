@@ -5,6 +5,8 @@
 ## 読む資料
 `docs/decisions.md`と`docs/series_bible.md`、[制作ルール](../production_rules.md)。
 
+[制作フロー設計書](../production_workflow.md)、[担当 agent.md](direction/agent.md)、[提出前チェックリスト](direction/review_checklist.md)を適用する。
+
 ## 成果物
 shots.csv、絵コンテ、カメラ、表情・演技、必要素材の依頼
 

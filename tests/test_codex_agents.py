@@ -38,6 +38,17 @@ class CodexAgentTests(unittest.TestCase):
             (root / "docs" / "roles" / "art" / "review_checklist.md").unlink()
             self.assertIn("必要な資料がありません: docs/roles/art/review_checklist.md", validate(root))
 
+    def test_role_must_reference_workflow(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            shutil.copytree(ROOT / ".codex", root / ".codex")
+            shutil.copytree(ROOT / "docs", root / "docs")
+            path = root / ".codex" / "agents" / "video_director.toml"
+            text = path.read_text(encoding="utf-8")
+            path.write_text(text.replace("docs/production_workflow.md", "missing_workflow.md"), encoding="utf-8")
+            self.assertTrue(any("制作フロールールへの参照がありません: docs/production_workflow.md" in e
+                                for e in validate(root)))
+
     def test_agents_must_be_a_table(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

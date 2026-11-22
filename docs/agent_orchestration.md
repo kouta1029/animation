@@ -8,7 +8,7 @@
 
 | ロール名 | ファイル | 役割・所有範囲 |
 |---|---|---|
-| 総監督（親セッション） | この文書、AGENTS.md（PR #9） | 判断・委譲・調整・QA・承認待ち |
+| 総監督（親セッション） | この文書、[総監督 agent.md](roles/director/agent.md) | 判断・委譲・調整・QA・承認待ち |
 | `script_director` | `.codex/agents/script_director.toml` | 企画候補、脚本、セリフ演技 |
 | `art_director` | `.codex/agents/art_director.toml` | 作画ラフ、パーツ、素材QA |
 | `direction_director` | `.codex/agents/direction_director.toml` | 絵コンテ、カット、表情/カメラ |
@@ -18,7 +18,7 @@
 
 ## 親（総監督）が毎回行うこと
 
-1. `docs/decisions.md`→`docs/series_bible.md`→`docs/production_rules.md`→`docs/roles/director.md`を読む。AGENTS.md等の共通ルールも尊重する。
+1. `docs/decisions.md`→`docs/series_bible.md`→`docs/production_rules.md`→`docs/roles/director.md`を読む。[制作フロー設計書](production_workflow.md)、AGENTS.md、担当の agent.md と品質チェックリストを追加で確認する。
 2. 最新`main`、Issue、オープンPR、各担当の作業範囲を確認。参照コミットを記録する。PR #8（作画）等の未マージ成果物を勝手に承認・置換しない。
 3. 依頼を話数・尺・候補・承認段階に分解し、各担当の**明確な入力と出力**を決める。対象ファイルの所有者を割り当てる。
 4. 独立した調査・ラフ・技術検証は並行で委譲可能。依存する制作（脚本→絵コンテ→映像）は承認ゲートを通して順番に進める。
@@ -46,11 +46,12 @@
        script_director: 本脚本 → G1
           |
        direction_director: 絵コンテ   art_director: 必要素材
+       video_director: 候補音声と実測尺を共有
                     \              /
-                       G2レビュー
+                       G2a・G2bの確認 → G2最終承認
                           |
-       video_director: 仮音声/音声生成・アニメ試写
-                   G3 → G4
+       G3：採用音声の承認
+       video_director: 本制作 → G4
                           |
        総監督：G5公開前の最終レビュー（人間承認）
 ```
