@@ -115,3 +115,7 @@ report:
 - https://learn.chatgpt.com/docs/agent-configuration/subagents
 - https://learn.chatgpt.com/docs/config-file/config-reference
 - https://developers.openai.com/api/docs/guides/agents-api/multi-agent
+
+## EP001の完成を目標にした継続実行
+
+第1話の完成を優先する場合は、[EP001専用のCodex Goal](prompts/complete_ep001.md) を起動する。既存の承認ゲート、作画QC、役割・権限を守り、完成候補と証拠が揃うまで実行可能な作業を継続する。別途の常駐監視・API課金・公開はこの方法に含まない。
