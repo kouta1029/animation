@@ -12,6 +12,7 @@
 4. [開発ルール](docs/development_rules.md) — 実装・素材・テスト
 5. [レビュー基準](docs/review_rules.md) — 承認・差戻し
 6. 自分の担当：`docs/roles/director.md` / `script.md` / `art.md` / `direction.md` / `video.md`
+7. [制作フロー設計書 v1.0](docs/production_workflow.md) — 全工程・部門間連携の導入案（総監督承認前は現行の制作ルールを優先）
 
 優先順位：**ユーザーが明示的に合意した最新決定（decisions.md）→ 承認済みの仕様・ブリーフ → 担当別ルール → 古い設計案・参考資料**。矛盾があれば勝手に解釈を確定せず、IssueまたはPRに明記する。
 
