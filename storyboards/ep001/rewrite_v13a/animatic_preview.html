@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ja">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EP001 v1.3 A｜G2a 演技と口パクの仮アニマティック</title>
+<style>
+body{font-family:system-ui,sans-serif;background:#1e2932;color:#f4f7f9;margin:0;padding:16px}
+main{max-width:750px;margin:auto}h1{font-size:21px}
+canvas{display:block;max-width:360px;width:100%;aspect-ratio:9/16;margin:auto;border:1px solid #82929a}
+.controls{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:14px 0}
+button{padding:9px 15px;font-size:14px}input[type=range]{flex:1;min-width:200px}
+p,li{font-size:14px;line-height:1.7}
+</style></head>
+<body><main>
+<h1>EP001｜G2a 無音・演技仮試写</h1>
+<p>PR #29 G1承認A案（44.0秒・24fps）の比較用代理図形。PR #30のL02/L04を流用していません。<strong>実音声・実キャラ原画・音素同期は使用していません。</strong></p>
+<canvas id="screen" width="360" height="640" aria-label="EP001 G2a storyboard preview"></canvas>
+<div class="controls"><button id="play">再生</button><button id="restart">最初から</button><input id="seek" type="range" min="0" max="1055" value="0"><output id="clock">0.00s</output></div>
+<p>重点確認：37.4–38.6秒「お、来た」は低エネルギー・小口。39.1–40.8秒「飲み物取って」は寝たまま小口＋片手だけ伸ばす。40.8–41.4秒は無発話で口閉じ。41.4–43.5秒「布団から誘うな！！」は主人公を顔寄りに切り返し大きい口と眉。43.5秒以降は表情保持。</p>
+<script>
+const FPS=24,TOTAL=1056,screen=document.getElementById('screen'),c=screen.getContext('2d');
+let f=0,running=false,epoch=0,origin=0;
+const shots=[[0,3,'R13-01'],[3,9,'R13-02'],[9,17,'R13-03'],[17,24,'R13-04'],[24,32,'R13-05'],[32,37.2,'R13-06'],[37.2,39,'R13-07'],[39,41.2,'R13-08'],[41.2,44,'R13-09']];
+const cues=[
+['M01',0,2.2,'今夜、飲む？','organizer'],['M02',.9,3,'行けたら行く','protagonist'],
+['M03',4.2,7,'ちょっと遠くて','protagonist'],['L01',7.1,7.9,'近っ','protagonist'],
+['M04',10.8,13,'もう部屋着だし','protagonist'],['S01',12.4,16.5,'部屋着歓迎','shop_sign'],
+['L02',17.8,19.1,'ちゃんと断ろ','protagonist'],['M05',20.4,23,'今日は行かない','protagonist'],
+['M06',25,29.2,'じゃあ今からうち来る？','organizer'],['M07',30.6,32,'行けたら行く','protagonist'],
+['L03',37.4,38.6,'お、来た','organizer'],['L04',39.1,40.8,'飲み物取って','organizer'],
+['L05',41.4,43.5,'布団から誘うな！！','protagonist']
+];
+function rect(x,y,w,h,color){c.fillStyle=color;c.fillRect(x,y,w,h)}
+function ellipse(x,y,rx,ry,color){c.beginPath();c.ellipse(x,y,rx,ry,0,0,Math.PI*2);c.fillStyle=color;c.fill()}
+function txt(s,x,y,size=16,col='#263645',bold=false){c.fillStyle=col;c.font=(bold?'bold ':'')+size+'px sans-serif';c.fillText(s,x,y)}
+function line(x,y,xx,yy,col,width=4){c.beginPath();c.moveTo(x,y);c.lineTo(xx,yy);c.strokeStyle=col;c.lineWidth=width;c.stroke()}
+function bubble(s,x,y,friend=false){c.font='16px sans-serif';const w=Math.min(283,c.measureText(s).width+28);rect(x,y,w,38,friend?'#fff9ed':'#d7eddb');txt(s,x+12,y+26,16)}
+function mouth(t,start,end,large){if(t<start||t>=end)return 0;const progress=(t-start)/(end-start);if(progress>.93)return 0;return 1+Math.floor((t-start)*(large?10:6))%(large?3:2)}
+function pro(x,y,zoom=1,shout=false,m=0){
+c.save();c.translate(x,y);c.scale(zoom,zoom);
+rect(-30,24,62,114,'#526b88');ellipse(0,0,28,41,'#e6c0a5');
+ellipse(0,-35,28,17,'#243b50');
+line(-17,-10,-6,shout?-18:-10,'#243b50',shout?3:2);
+line(7,shout?-18:-10,19,-10,'#243b50',shout?3:2);
+ellipse(-10,-1,shout?3.5:2.5,shout?5:3,'#253344');
+ellipse(12,-1,shout?3.5:2.5,shout?5:3,'#253344');
+if(m){ellipse(0,23,m===1?7:m===2?10:13,m===1?6:m===2?11:15,'#613b49')}else{line(-7,23,7,23,'#613b49',2)}
+if(shout){line(25,63,60,27,'#526b88',13)}else{line(24,57,36,107,'#526b88',12)}
+c.restore()
+}
+function friend(t){
+rect(102,335,243,151,'#d4dfe5');rect(128,347,213,116,'#a6adad');
+ellipse(268,390,70,48,'#e1bdae');ellipse(170,369,42,43,'#edc9ab');ellipse(170,339,43,19,'#4e4851');
+line(149,368,163,370,'#45434c',2);line(181,368,195,370,'#45434c',2);
+let m=mouth(t,37.4,38.6,false)||mouth(t,39.1,40.8,false);
+if(m)ellipse(177,391,m===1?4:7,m===1?5:8,'#593b42');else line(172,390,182,390,'#593b42',2);
+ellipse(177,419,42,18,'#f2dfb7');
+if(t>=39){line(260,368,300,345,'#d2a991',14);ellipse(310,343,12,8,'#e9c4a9')}else{line(260,371,274,388,'#d2a991',14)}
+}
+function render(){
+const t=f/FPS,sh=shots.find(a=>a[0]<=t&&t<a[1]);
+rect(0,0,360,640,'#eee5dc');rect(0,0,360,40,'#243848');
+rect(0,527,360,113,'#243848');txt('EP001 / G2a PREVIS / SILENT',11,25,12,'white',true);txt(sh[2],274,25,12,'white');
+if(t<32){
+rect(152,170,153,344,'#806e60');rect(172,188,116,312,'#cbd0d2');
+line(178,495,230,320,'#a2aeb2',2);line(287,495,230,320,'#a2aeb2',2);
+if(t>=1.4&&t<21){const p=Math.max(0,Math.min(1,(t-5)/1.8));rect(209-p*24,246-p*29,50+p*49,80+p*70,'#a84d53')}
+if(t>=12.4&&t<21){rect(183,326,112,35,'#f9ecc7');txt('部屋着歓迎',192,350,15)}
+if(t>=30.6)rect(174,188,112,312,'#c8b5a5');
+rect(148,170,18,344,'#69584d');rect(296,170,15,344,'#69584d');rect(148,162,163,15,'#69584d');
+pro(78,330,.88,false,((t>=7.1&&t<7.9)||t>=17.8&&t<19.1)?1:0);
+}else if(t<41.2){
+rect(0,40,360,488,'#e7d8d0');rect(10,149,343,20,'#756558');rect(10,149,22,368,'#756558');rect(339,149,14,368,'#756558');
+pro(62,328,.7,false,0);if(t>=34.5)friend(t);else rect(101,339,244,144,'#ccb1a8');
+}else{
+rect(0,40,360,488,'#f2e7e2');
+pro(174,232,1.9,t>=41.4,mouth(t,41.4,43.5,true))
+}
+for(const cue of cues){const [id,a,b,msg,sp]=cue;
+if(t>=a&&t<b&&id.startsWith('M'))bubble(msg,sp==='organizer'?14:65,60,sp==='organizer');
+}
+const speech=cues.find(([id,a,b])=>id.startsWith('L')&&t>=a&&t<b);
+if(speech){rect(12,455,291,59,'#243848');txt((speech[4]==='organizer'?'友人 M2':'主人公 にせ')+' · '+speech[0],20,473,12,'#eeb99c');txt(speech[3],20,499,18,'white',true)}
+if(t>=40.8&&t<41.4){rect(12,462,291,45,'#42525d');txt('無言：友人は口を閉じる',22,490,14,'white')}
+txt(t.toFixed(2)+'s / 44.00s',12,549,14,'white',true);
+txt('原画未承認／仮口パク／音声なし',12,580,12,'#d5dfe7');
+rect(10,616,340*f/1055,4,'#ecc594');
+document.getElementById('clock').textContent=t.toFixed(2)+'s';
+document.getElementById('seek').value=f;
+}
+function step(now){if(!running)return;f=Math.min(1055,origin+Math.floor((now-epoch)*24/1000));render();if(f>=1055){running=false;document.getElementById('play').textContent='再生';return}requestAnimationFrame(step)}
+document.getElementById('play').onclick=()=>{if(running){running=false;document.getElementById('play').textContent='再生';return}if(f>=1055)f=0;running=true;origin=f;epoch=performance.now();document.getElementById('play').textContent='停止';requestAnimationFrame(step)};
+document.getElementById('restart').onclick=()=>{running=false;f=0;document.getElementById('play').textContent='再生';render()};
+document.getElementById('seek').oninput=e=>{running=false;document.getElementById('play').textContent='再生';f=+e.target.value;render()};
+render();
+</script></main></body></html>
