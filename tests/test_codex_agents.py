@@ -19,6 +19,25 @@ class CodexAgentTests(unittest.TestCase):
             (root / ".codex" / "agents" / "extra.toml").touch()
             self.assertEqual(validate(root), ["未定義のロールファイル: extra.toml"])
 
+    def test_art_quality_rules_reference_is_required(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            shutil.copytree(ROOT / ".codex", root / ".codex")
+            shutil.copytree(ROOT / "docs", root / "docs")
+            path = root / ".codex" / "agents" / "art_director.toml"
+            text = path.read_text(encoding="utf-8").replace("docs/roles/art/agent.md", "missing_art_rules.md")
+            path.write_text(text, encoding="utf-8")
+            errors = validate(root)
+            self.assertTrue(any("作画品質ルールへの参照がありません: docs/roles/art/agent.md" in e for e in errors))
+
+    def test_art_quality_checklist_must_exist(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            shutil.copytree(ROOT / ".codex", root / ".codex")
+            shutil.copytree(ROOT / "docs", root / "docs")
+            (root / "docs" / "roles" / "art" / "review_checklist.md").unlink()
+            self.assertIn("必要な資料がありません: docs/roles/art/review_checklist.md", validate(root))
+
     def test_agents_must_be_a_table(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
