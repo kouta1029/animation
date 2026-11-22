@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EP001 G1前 演出診断</title>
+<style>body{font:16px system-ui,sans-serif;background:#20252a;color:#fff;margin:16px}main{max-width:720px;margin:auto}svg{width:min(360px,100%);height:auto;display:block;margin:12px auto;background:#efebe4}label,button,select{margin:4px}input[type=range]{width:100%}small{display:block;line-height:1.5}</style>
+<main><h1>EP001｜無音レイアウト診断</h1><small>G1前・代理図形のみ。作画・正式コンテ・音声・公開品質の判定には使用しない。360×640の固定座標。右60px・上下の帯は仮UI領域であり、実端末のUI仕様ではない。</small>
+<label>導入<select id="opening"><option value="A">A 同一構図</option><option value="B">B スマホ寄り→戸口</option></select></label>
+<label>オチ前の間<select id="pause"><option value="6">0.25秒</option><option value="12" selected>0.50秒</option><option value="18">0.75秒</option></select></label>
+<label><input id="sub" type="checkbox">発話字幕（比較用）</label>
+<svg id="screen" viewBox="0 0 360 640" role="img" aria-label="仮図形による構図検証"></svg>
+<button id="play">再生 / 停止</button><button id="reset">先頭</button><output id="clock"></output><input id="seek" type="range" min="0" max="839" value="0" aria-label="フレーム位置"><small id="test"></small>
+<p>初見試験：発話字幕OFFで1回再生し、①何と返したら何が現れたか、②なぜ店が近づいたか、③部屋着の条件、④どう元へ戻ったか、⑤幹事の本音を尋ねる。別の初見者でA/B比較。文字の重なり・読了・オチの間を記録。</p></main>
+<script>
+
+const FPS=24, END=840;
+const cues=[
+ ['M01',0,58,'今日、飲み来る？',0],
+ ['M02',22,72,'行けたら行く',1],
+ ['M03',108,192,'ちょっと遠いし',1],
+ ['L01',228,250,'近っ',2],
+ ['M04',336,408,'部屋着だし',1],
+ ['S01',408,528,'部屋着歓迎',3],
+ ['M05',576,648,'ごめん、今日は行かない',1],
+ ['M06',696,770,'助かる。俺も今、布団',0]
+];
+function state(f,opening,pause){
+ const start=770+pause, end=start+48;
+ const visible=cues.filter(c=>c[1]<=f&&f<c[2]);
+ if(f>=start&&f<end)visible.push(['L02',start,end,'お前が誘ったんだろ',2]);
+ return {f,visible,phone:opening==='B'&&f<36,
+  door:f<36?0:(f<144?1:f<152?1+(f-144)/8:f<600?2:1),
+  store:f>=36&&f<600, sign:f>=408&&f<528,
+  lean:f>=152&&f<264?-12:0, look:f>=408&&f<528?(f<440?'sign':f<468?'sleeve':'sign'):f>=696?'phone':'door',
+  close:f>=396&&f<528, end, start};
+}
+const bubble=(c)=>({x:c[4]===1?76:24,y:c[0]==='M02'?108:c[4]===2?460:64,w:c[4]===1?218:258,h:36});
+function tests(){
+ let checks=0;
+ function check(v,m){if(!v)throw Error(m);checks++}
+ for(const opening of ['A','B'])for(const pause of [6,12,18]){
+  for(let f=0;f<END;f++){
+   const s=state(f,opening,pause);
+   check(s.visible.every(c=>c[1]<=f&&f<c[2]),'cue bounds');
+   for(const c of s.visible.filter(c=>c[4]!==3)){
+    const b=bubble(c);
+    check(b.x>=16&&b.x+b.w<=300&&b.y>=64&&b.y+b.h<=512,'mock safe area '+c[0]);
+    check([...c[3]].length*16+20<=b.w,'conservative character width '+c[0]);
+   }
+   check(s.end<=END,'ending');
+   if(f<22||f>=600)check(!s.store,'causality');
+   if(f>=696&&f<770)check(s.visible.some(c=>c[0]==='M06'),'reveal');
+  }
+  check(state(36,opening,pause).store&&!state(35,opening,pause).store,'appearance');
+  check(state(599,opening,pause).store&&!state(600,opening,pause).store,'disappearance');
+  check(state(770+pause,opening,pause).visible.some(c=>c[0]==='L02'),'punch line');
+  check(state(770+pause+48,opening,pause).visible.every(c=>c[0]!=='L02'),'punch line end');
+ }
+ return checks;
+}
+const $=id=>document.getElementById(id);
+const rect=(x,y,w,h,fill,extra='')=>'<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="'+fill+'" '+extra+'/>';
+const txt=(x,y,t,size=16,fill='#16212a')=>'<text x="'+x+'" y="'+y+'" font-size="'+size+'" fill="'+fill+'" font-family="sans-serif">'+t+'</text>';
+let f=0,playing=false,anchor=0,origin=0;
+function draw(){
+ const s=state(f,$('opening').value,+$('pause').value);
+ let z=rect(0,0,360,640,'#eae5dc')+rect(0,530,360,110,'#c5c0b7');
+ if(s.phone){
+  z+=rect(105,180,150,280,'#263645','rx="16"')+rect(115,200,130,240,'#e4f2f6')+rect(140,410,80,65,'#acb5c5','rx="10"');
+ }else{
+  z+=rect(166,158,122,328,'#6d645a')+rect(176,168,102,308,'#c7c0b6')+'<path d="M176 476 L227 320 L278 476" fill="#b5a99a"/>';
+  if(s.store){
+   const w=s.door===1?40:40+62*(s.door-1),h=s.door===1?54:54+82*(s.door-1),x=227-w/2,y=240-(h-54)/2;
+   z+='<defs><clipPath id="openingMask"><rect x="176" y="168" width="102" height="308"/></clipPath></defs><g clip-path="url(#openingMask)">'+rect(x,y,w,h,'#205b65')+rect(226,y,2,h,'#d9d1ba')+'</g>';
+   if(f>=288&&f<528)z+=rect(177,344,100,30,'#fff9e8')+(s.sign?txt(188,364,'部屋着歓迎',15):'');
+  }
+  const closing=s.close?20:0;
+  z+=rect(156,148,10,348,'#65594d')+rect(288,148,10,348,'#65594d')+rect(156,148,142,10,'#65594d')+rect(166,158,closing||5,328,'#907b62');
+  if(f<36)z+=rect(166,158,122,328,'#967f68');
+  const face=f>=770, cx=face?150:87,cy=face?315:340, scale=face?1.7:1; const gaze=s.look==='sign'?4:s.look==='sleeve'?-3:0; const ey=s.look==='sleeve'||s.look==='phone'?-9:-14;
+  z+='<g transform="translate('+cx+' '+cy+') scale('+scale+') rotate('+s.lean+')">'+rect(-29,20,58,100,'#818b9b','rx="6"')+'<circle cx="0" cy="-10" r="27" fill="#f0d8bb"/><circle cx="'+(-9+gaze)+'" cy="'+ey+'" r="2.5" fill="#263645"/><circle cx="'+(9+gaze)+'" cy="'+ey+'" r="2.5" fill="#263645"/><path d="M-5 1 h10" stroke="#263645" stroke-width="2"/>';
+  const dx=s.look==='sign'?36:s.look==='sleeve'?9:25;
+  z+='<path d="M25 36 L'+dx+' 70" stroke="#818b9b" stroke-width="13" stroke-linecap="round"/>'+rect(dx-8,63,17,30,'#263645','rx="3"')+'</g>';
+ }
+ for(const c of s.visible){
+  if(c[4]===3||c[4]===2&&!$('sub').checked)continue;
+  const b=bubble(c);z+=rect(b.x,b.y,b.w,b.h,c[4]===1?'#d0efca':'#ffffff','rx="8"')+txt(b.x+10,b.y+24,c[3]);
+ }
+ z+=rect(300,0,60,640,'#000000','opacity=".18"')+rect(0,0,300,58,'#000000','opacity=".18"')+rect(0,512,300,128,'#000000','opacity=".18"');
+ $('screen').innerHTML=z;$('seek').value=f;$('clock').textContent=(f/FPS).toFixed(2)+'s / 35s · f'+f;
+}
+function tick(now){if(!playing)return;f=Math.min(839,origin+Math.floor((now-anchor)/1000*FPS));draw();if(f===839){playing=false;return}requestAnimationFrame(tick)}
+$('play').onclick=()=>{if(playing){playing=false;return}if(f===839)f=0;playing=true;origin=f;anchor=performance.now();requestAnimationFrame(tick)};
+$('reset').onclick=()=>{playing=false;f=0;draw()};
+$('seek').oninput=()=>{playing=false;f=+$('seek').value;draw()};
+for(const id of ['opening','pause','sub'])$(id).onchange=draw;
+$('test').textContent='ロジック検査：'+tests()+' assertions PASS（実端末・読了・演技の合格ではない）';draw();
+</script></html>
