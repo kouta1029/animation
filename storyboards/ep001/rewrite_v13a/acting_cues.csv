@@ -1,0 +1,14 @@
+cue_id,kind,start_sec,end_sec,speaker_id,shot_ids,text,voice_model,acting_motion,qa_status
+M01,message,0.0,2.2,organizer,R13-01,今夜、飲む？,,incoming bubble,DESK_ONLY
+M02,message,0.9,3.0,protagonist,R13-01,行けたら行く,,send tap store at 1.4sec,DESK_ONLY
+M03,message,4.2,7.0,protagonist,R13-02,ちょっと遠くて,,store approaches 5.0-6.8sec,DESK_ONLY
+L01,voice,7.1,7.9,protagonist,R13-02,近っ,にせ・ノーマル,surprised short mouth; natural speed requires measurement,PLACEHOLDER_LIPSYNC
+M04,message,10.8,13.0,protagonist,R13-03,もう部屋着だし,,gaze sleeve,DESK_ONLY
+S01,sign,12.4,16.5,shop_sign,R13-03,部屋着歓迎,,gaze sign-sleeve-sign,DESK_ONLY
+L02,voice,17.8,19.1,protagonist,R13-04,ちゃんと断ろ,にせ・ノーマル,resigned restrained mouth; natural speed requires measurement,PLACEHOLDER_LIPSYNC
+M05,message,20.4,23.0,protagonist,R13-04,今日は行かない,,doorway restores at 21sec,DESK_ONLY
+M06,message,25.0,29.2,organizer,R13-05,じゃあ今からうち来る？,,incoming bubble,DESK_ONLY
+M07,message,30.6,32.0,protagonist,R13-05,行けたら行く,,reflex send then face freezes,DESK_ONLY
+L03,voice,37.4,38.6,organizer,R13-07,お、来た,M2・ノーマル（仮）,reclined half-lidded small mouth no sit-up,PLACEHOLDER_LIPSYNC
+L04,voice,39.1,40.8,organizer,R13-08,飲み物取って,M2・ノーマル（仮）,reclined small mouth single relaxed arm extension,PLACEHOLDER_LIPSYNC
+L05,voice,41.4,43.5,protagonist,R13-09,布団から誘うな！！,にせ・ノーマル,face-close wide mouth and eyebrows strong arm movement; hold after,PLACEHOLDER_LIPSYNC
