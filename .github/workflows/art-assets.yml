@@ -1,0 +1,31 @@
+name: Art asset build and QA
+on:
+  push:
+    paths:
+      - 'assets/concepts/v0.3/**'
+      - 'tools/art/**'
+      - 'requirements-art.txt'
+      - '.github/workflows/art-assets.yml'
+  pull_request:
+    paths:
+      - 'assets/concepts/v0.3/**'
+      - 'tools/art/**'
+      - 'requirements-art.txt'
+      - '.github/workflows/art-assets.yml'
+jobs:
+  art-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r requirements-art.txt
+      - run: python tools/art/build_assets.py --output build/art_v0.3
+      - run: python tools/art/qa_assets.py build/art_v0.3
+      - run: python tools/art/qa_concept_views.py --render build/art_v0.3/concepts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: art-v0.3-redesign-unapproved-svg-png
+          path: build/art_v0.3/
+          retention-days: 7
