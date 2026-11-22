@@ -1,0 +1,10 @@
+shot_id,start_ms,duration_ms,speaker_id,line_id,asset_ids,camera,action,emotion
+EP001_SH010,0,3000,organizer;protagonist,M01;M02,EP001_BG01;EP001_BG02;EP001_PR01;EP001_PR02;EP001_PR03;EP001_CH01;EP001_CH02,A 固定の戸口・ミディアムワイド,通常廊下→返信送信→開扉→のれん露出→握り手が止まる,平常→戸惑い
+EP001_SH020,3000,6208,protagonist,M03,EP001_BG01;EP001_BG02;EP001_PR01;EP001_PR02;EP001_PR03;EP001_CH01;EP001_CH02,A 同一画角で固定,視線をスマホに戻す→送信→廊下短縮・のれん停止,取り繕い→硬直
+EP001_SH030,9208,2792,protagonist,L01,EP001_BG01;EP001_CH01;EP001_CH02;EP001_CH03;EP001_CH04,B 右向き3/4胸上・固定,停止した戸口を見て上体を引く→近っ→スマホへ視線,驚き→焦り
+EP001_SH040,12000,4250,protagonist,M04,EP001_BG01;EP001_PR01;EP001_PR03;EP001_CH01;EP001_CH02,Bの肩から袖・スマホまで入る寄り,右手で左袖をつまむ→離して送信→再び把手へ,言い訳を思いつく
+EP001_SH050,16250,5750,shop_sign,S01,EP001_BG01;EP001_BG02;EP001_PR01;EP001_PR02;EP001_PR04;EP001_CH01;EP001_CH02;EP001_CH03,C 貼り紙と顔を同時に見る固定寄り,閉めかけた戸が止まる→貼り紙→袖→目だけ戻す→戸を少し戻す,二度見→観念
+EP001_SH060,22000,2000,,,EP001_BG01;EP001_PR03;EP001_CH01;EP001_CH02,B 胸上・スマホと親指,スマホに伏し目→親指を止める,気まずさ→決意
+EP001_SH070,24000,5000,protagonist,M05,EP001_BG01;EP001_BG02;EP001_PR01;EP001_PR02;EP001_PR03;EP001_CH01;EP001_CH02;EP001_CH03,A 冒頭と同じ戸口構図,送信→通常廊下へ復帰→肩が抜ける,安堵
+EP001_SH080,29000,3083,organizer,M06,EP001_BG01;EP001_PR03;EP001_CH01;EP001_CH02;EP001_CH03,B スマホと顔の固定胸上,二行の返信を読む→助かるで緩む→布団で目が止まる,意外→ぼう然
+EP001_SH090,32083,2917,protagonist,L02,EP001_BG01;EP001_CH01;EP001_CH03;EP001_CH04,D 顔アップ固定,12f無言→低いツッコミ→半目の余韻,脱力した呆れ
