@@ -29,7 +29,7 @@ function state(f,opening,pause){
   door:f<36?0:(f<144?1:f<152?1+(f-144)/8:f<600?2:1),
   store:f>=36&&f<600, sign:f>=408&&f<528,
   lean:f>=152&&f<264?-12:0, look:f>=408&&f<528?(f<440?'sign':f<468?'sleeve':'sign'):f>=696?'phone':'door',
-  close:f>=468&&f<528, end, start};
+  close:f>=396&&f<528, end, start};
 }
 const bubble=(c)=>({x:c[4]===1?76:24,y:c[0]==='M02'?108:c[4]===2?460:64,w:c[4]===1?218:258,h:36});
 function tests(){
@@ -69,13 +69,13 @@ function draw(){
   if(s.store){
    const w=s.door===1?40:40+62*(s.door-1),h=s.door===1?54:54+82*(s.door-1),x=227-w/2,y=240-(h-54)/2;
    z+='<defs><clipPath id="openingMask"><rect x="176" y="168" width="102" height="308"/></clipPath></defs><g clip-path="url(#openingMask)">'+rect(x,y,w,h,'#205b65')+rect(226,y,2,h,'#d9d1ba')+'</g>';
-   if(s.sign)z+=rect(177,344,100,30,'#fff9e8')+txt(188,364,'部屋着歓迎',15);
+   if(f>=288&&f<528)z+=rect(177,344,100,30,'#fff9e8')+(s.sign?txt(188,364,'部屋着歓迎',15):'');
   }
   const closing=s.close?20:0;
   z+=rect(156,148,10,348,'#65594d')+rect(288,148,10,348,'#65594d')+rect(156,148,142,10,'#65594d')+rect(166,158,closing||5,328,'#907b62');
   if(f<36)z+=rect(166,158,122,328,'#967f68');
-  const face=f>=770, cx=face?150:87,cy=face?315:340, scale=face?1.7:1;
-  z+='<g transform="translate('+cx+' '+cy+') scale('+scale+') rotate('+s.lean+')">'+rect(-29,20,58,100,'#818b9b','rx="6"')+'<circle cx="0" cy="-10" r="27" fill="#f0d8bb"/><path d="M-11 -14 h6 M6 -14 h6" stroke="#263645" stroke-width="3"/><path d="M-5 1 h10" stroke="#263645" stroke-width="2"/>';
+  const face=f>=770, cx=face?150:87,cy=face?315:340, scale=face?1.7:1; const gaze=s.look==='sign'?4:s.look==='sleeve'?-3:0; const ey=s.look==='sleeve'||s.look==='phone'?-9:-14;
+  z+='<g transform="translate('+cx+' '+cy+') scale('+scale+') rotate('+s.lean+')">'+rect(-29,20,58,100,'#818b9b','rx="6"')+'<circle cx="0" cy="-10" r="27" fill="#f0d8bb"/><circle cx="'+(-9+gaze)+'" cy="'+ey+'" r="2.5" fill="#263645"/><circle cx="'+(9+gaze)+'" cy="'+ey+'" r="2.5" fill="#263645"/><path d="M-5 1 h10" stroke="#263645" stroke-width="2"/>';
   const dx=s.look==='sign'?36:s.look==='sleeve'?9:25;
   z+='<path d="M25 36 L'+dx+' 70" stroke="#818b9b" stroke-width="13" stroke-linecap="round"/>'+rect(dx-8,63,17,30,'#263645','rx="3"')+'</g>';
  }
