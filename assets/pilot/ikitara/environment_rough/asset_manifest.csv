@@ -1,0 +1,7 @@
+asset_id,file_path,version,source,rights,owner,status,width_px,height_px,alpha,pivot_x_px,pivot_y_px,layer_intent,requirement_ids
+EP001_ENV_ROUGH_NORMAL,genkan_normal.png,rough-v1,ImageGen / edit of genkan_izakaya_far.png,OpenAI Terms of Use,art,ROUGH,992,1585,no,,,静止背景の配色・通常廊下の参考,REQ-B01
+EP001_ENV_ROUGH_FAR,genkan_izakaya_far.png,rough-v1,ImageGen / original environment composition,OpenAI Terms of Use,art,ROUGH,992,1586,no,,,静止背景の配色・遠方出現の参考,REQ-B01+REQ-B02+REQ-P01
+EP001_ENV_ROUGH_NEAR,genkan_izakaya_near.png,rough-v1,ImageGen / edit of genkan_izakaya_far.png,OpenAI Terms of Use,art,ROUGH,992,1585,no,,,静止背景の配色・接近時の参考,REQ-B02+REQ-P01+REQ-P02
+EP001_ENV_ROUGH_NOREN,noren.png,rough-v1,ImageGen / visual reference genkan_izakaya_far.png,OpenAI Terms of Use,art,ROUGH,1536,1024,yes,768,220,店入口の前・戸枠と開閉戸の奥,REQ-B02
+EP001_ENV_ROUGH_NOTICE,notice_board.png,rough-v1,ImageGen / visual reference genkan_izakaya_near.png,OpenAI Terms of Use,art,ROUGH,1024,1536,yes,512,115,店入口の前・文字S01の奥・戸枠の奥,REQ-P02
+EP001_ENV_ROUGH_PHONE,smartphone.png,rough-v1,ImageGen / style reference genkan_izakaya_near.png,OpenAI Terms of Use,art,ROUGH,992,1586,yes,496,793,持ち手の奥に回る指より前・操作する指と画面UIの奥,REQ-P02
